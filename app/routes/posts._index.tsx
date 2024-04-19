@@ -4,14 +4,11 @@ export default function Posts() {
   const { posts } = useLoaderData<typeof loader>();
   return (
     <main>
-      {posts.map((post: any) => {
-        const parts = post.link.split("/");
-        return (
-          <Link to={`/posts/${parts[parts.length - 2]}`} key={post.id}>
-            <h1>{post.title.rendered}</h1>
-          </Link>
-        );
-      })}
+      {posts.map((post: any) => (
+        <Link to={`/posts/${post.slug}`} key={post.id}>
+          <h1>{post.title.rendered}</h1>
+        </Link>
+      ))}
     </main>
   );
 }
