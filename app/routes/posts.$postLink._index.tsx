@@ -8,9 +8,11 @@ export default function Post() {
 }
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
-  const res = await fetch(
-    `https://remixcms.ptemagic.com/wp-json/wp/v2/posts/${params.postId}`
-  );
-  const post = await res.json();
+  const res = await fetch(`https://remixcms.ptemagic.com/wp-json/wp/v2/posts`);
+  const posts = await res.json();
+  const post = posts.find((post) => {
+    const parts = post.link.split("/");
+    return parts[parts.length - 2] === params.postLink;
+  });
   return { post };
 };
